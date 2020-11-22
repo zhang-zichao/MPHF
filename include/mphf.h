@@ -29,6 +29,11 @@ typedef struct MPHFQuerier {
   uint8_t bMMAP;
 } MPHFQuerier;
 
+typedef struct MPHFSolution {
+  uint8_t *pSolution;
+  uint32_t size;
+} MPHFSolution;
+
 #include "mphf_serial.h"
 
 MPHFBuilder *MPHFBuilderAlloc(uint32_t nExpectedElements);
@@ -44,3 +49,5 @@ void MPHFQuerierFree(MPHFQuerier *mphfq);
 uint32_t MPHFQueryRate(MPHFQuerier *mphfq);
 uint64_t MPHFSize(MPHFQuerier *mphfq);
 uint8_t *find_solution_external(cnf_t *pCNF, uint32_t nNumVariables, char solver_string[256]);
+
+MPHFSolution *MPHFBuilderFinalize2(MPHFBuilder *mphfb, MPHFParameters params); 
