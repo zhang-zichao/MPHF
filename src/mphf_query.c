@@ -47,6 +47,26 @@ MPHFQuerier *MPHFCreateQuerierFromBuilder(MPHFBuilder *mphfb, uint8_t *pSolution
   return mphfq;
 }
 
+MPHFQuerier *MPHFCreateQuerierFromSolution(uint8_t nNumElements, uint8_t *pSolution, uint8_t nNumVariables) {
+  uint8_t i, j;
+
+  MPHFQuerier *mphfq = MPHFQuerierAlloc(nNumElements, nNumVariables);
+  uint32_t nNumBlocks = ((nNumVariables-1) / 8) + 1;
+
+  for(i = 0; i < nNumBlocks; i++) {
+    for(j = 0; j < 8; j++) {
+      if(1 + i*8 + j > mphfq->nNumVariables) break;
+      if(pSolution[1 + i*8 + j] == 1) {
+        mphfq->pSolution[i] |= 1 << j;
+      }
+    }
+  }
+
+  free(pSolution);
+  
+  return mphfq;
+}
+
 //Can be used to query externally hashed elements
 uint32_t MPHFQueryHash(MPHFQuerier *mphfq, MPHFHash mphfh) {
   uint32_t i;

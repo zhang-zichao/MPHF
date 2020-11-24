@@ -51,3 +51,4 @@ uint64_t MPHFSize(MPHFQuerier *mphfq);
 uint8_t *find_solution_external(cnf_t *pCNF, uint32_t nNumVariables, char solver_string[256]);
 
 MPHFSolution *MPHFBuilderFinalize2(MPHFBuilder *mphfb, MPHFParameters params); 
+MPHFQuerier *MPHFCreateQuerierFromSolution(uint8_t nNumElements, uint8_t *pSolution, uint8_t nNumVariables);
